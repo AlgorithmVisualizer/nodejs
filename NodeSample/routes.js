@@ -1,10 +1,9 @@
-
-exports.setRequestUrl=function(app){
+exports.setRequestUrl = function (app) {
     var user = require('./controllers/user')
-        ,indexObj = require('./controllers/index')
-        ,fileObj = require('./controllers/fileSystem')
-        ,mongoObj = require('./controllers/mongoManagement')
-        ,articleObj = require('./controllers/article');
+        , indexObj = require('./controllers/index')
+        , fileObj = require('./controllers/fileSystem')
+        , mongoObj = require('./controllers/mongoManagement')
+        , articleObj = require('./controllers/article');
 
     app.get('/', user.login);
     app.post('/onLogin', user.onLogin);
@@ -19,23 +18,22 @@ exports.setRequestUrl=function(app){
     app.post('/index/:id/edit', indexObj.saveContect);
     app.get('/index/:id/delete', indexObj.deleteContectById);
 
-    app.all("/mongo/index",mongoObj.index);
+    app.all("/mongo/index", mongoObj.index);
 
-    app.get("/file/*",fileObj.initFileInfo)
-    app.get("/fileBrowser/pdf/*",fileObj.initPdf)
+    app.get("/file/*", fileObj.initFileInfo)
+    app.get("/fileBrowser/pdf/*", fileObj.initPdf)
 
 
     //  app.get("/article/articleManager",articleObj.initManager);
-    app.get("/article/articleManager/:articleId?",articleObj.initManager);
-    app.get("/article/articleDetail/:articleId?",articleObj.articleDetail);
-    app.get("/article/articleItem",articleObj.articleItem);
-    app.all("/article/search",articleObj.search)
+    app.get("/article/articleManager/:articleId?", articleObj.initManager);
+    app.get("/article/articleDetail/:articleId?", articleObj.articleDetail);
+    app.get("/article/articleItem", articleObj.articleItem);
+    app.all("/article/search", articleObj.search)
 
-    app.post("/article/saveArticleType",articleObj.saveArticleType);
-    app.post("/article/saveArticleDetail",articleObj.saveArticleDetail);
-    app.get("/article/listContext",articleObj.listContextPage);
-    app.get("/article/articleTypeAll",articleObj.articleTypeAll);
-
+    app.post("/article/saveArticleType", articleObj.saveArticleType);
+    app.post("/article/saveArticleDetail", articleObj.saveArticleDetail);
+    app.get("/article/listContext", articleObj.listContextPage);
+    app.get("/article/articleTypeAll", articleObj.articleTypeAll);
 
 
 }

@@ -34,21 +34,24 @@
 <div class="content">
 
     <div class="articleContent">
-    <h2 class="box"><a href="/article/articleManager/">add Article</a></li></a></h2>
+        <h2 class="box"><a href="/article/articleManager/">add Article</a></li></a></h2>
 
-    <div class="row-fluid">
-        <% for (var i = 0;i<articleItem.length; i++) {
-        var article = articleItem[i];
-        %>
-        <% if(i%3==0){%>
-    </div>
-    <%}%>
-    <% if(i%3==0){%>
-    <div class="row-fluid">
+        <div class="row-fluid">
+            <% for (var i = 0;i
+            <articleItem.length
+            ; i++) {
+            var article = articleItem[i];
+            %>
+            <% if(i%3==0){%>
+        </div>
         <%}%>
-        <div class="span4">
-            <a title="基于 Sass 和 Compass 构建的CSS按钮（button）样式库" href="/p/buttons/" target="_blank">
-                <img class="marketing-img lazy" src="<%= article.logoSrc %>" width="300" height="150" data-src="assets/img/buttons.png"></a>
+        <% if(i%3==0){%>
+        <div class="row-fluid">
+            <%}%>
+            <div class="span4">
+                <a title="基于 Sass 和 Compass 构建的CSS按钮（button）样式库" href="/p/buttons/" target="_blank">
+                    <img class="marketing-img lazy" src="<%= article.logoSrc %>" width="300" height="150"
+                         data-src="assets/img/buttons.png"></a>
                 <h2>
                     <%= article.articleType %>
                 </h2>
@@ -56,65 +59,65 @@
                     <%- article.describe%>
                     <a class="btn" href="/article/articleManager/<%- article._id%>">Edit</a>
                 </p>
+            </div>
+            <%} %>
         </div>
-        <%} %>
     </div>
-    </div>
-    </div>
+</div>
 
-    <script src="/js/lib/bootstrap/bootstrap.js"></script>
-    <script type="text/javascript" src="/js/lib//bootstrap-paginator.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            //获得浏览器参数
-            $.extend({
-                getUrlVars:function () {
-                    var vars = [], hash;
-                    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-                    for (var i = 0; i < hashes.length; i++) {
-                        hash = hashes[i].split('=');
-                        vars.push(hash[0]);
-                        vars[hash[0]] = hash[1];
-                    }
-                    return vars;
-                },
-                getUrlVar:function (name) {
-                    return $.getUrlVars()[name];
+<script src="/js/lib/bootstrap/bootstrap.js"></script>
+<script type="text/javascript" src="/js/lib//bootstrap-paginator.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //获得浏览器参数
+        $.extend({
+            getUrlVars: function () {
+                var vars = [], hash;
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for (var i = 0; i < hashes.length; i++) {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            },
+            getUrlVar: function (name) {
+                return $.getUrlVars()[name];
+            }
+        });
+
+        //封装浏览器参数
+        var composeUrlParams = function () {
+            var param = '';
+            $.each($.getUrlVars(), function (i, item) {
+                if (item != 'p') {
+                    var val = $.getUrlVar(item);
+                    if (val) param += "&" + item + "=" + val;
                 }
             });
-
-            //封装浏览器参数
-            var composeUrlParams = function () {
-                var param = '';
-                $.each($.getUrlVars(), function (i, item) {
-                    if (item != 'p') {
-                        var val = $.getUrlVar(item);
-                        if (val) param += "&" + item + "=" + val;
-                    }
-                });
-                return param;
-            }
+            return param;
+        }
 
 
-            //分页功能
-            var options = {
-                currentPage:2,
-                totalPages:5,
-                numberOfPages:5
+        //分页功能
+        var options = {
+            currentPage: 2,
+            totalPages: 5,
+            numberOfPages: 5
+        }
+        //分页功能
+        var page = $('#page1');
+        var options = {
+            currentPage: page.attr('pageNum'),
+            totalPages: page.attr('pageCount'),
+            numberOfPages: page.attr('numberOfPages'),
+            pageUrl: function (type, page, current) {
+                return "/article/listContext?" + composeUrlParams() + "&p=" + page;
             }
-            //分页功能
-            var page = $('#page1');
-            var options = {
-                currentPage:page.attr('pageNum'),
-                totalPages:page.attr('pageCount'),
-                numberOfPages:page.attr('numberOfPages'),
-                pageUrl:function (type, page, current) {
-                    return "/article/listContext?" + composeUrlParams() + "&p=" + page;
-                }
-            }
-            $('#page1').bootstrapPaginator(options);
-        });
-    </script>
+        }
+        $('#page1').bootstrapPaginator(options);
+    });
+</script>
 
 </body>
 </html>
